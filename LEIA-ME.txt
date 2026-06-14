@@ -1,0 +1,77 @@
+======================================
+  BOLÃO DA COPA — Como usar
+======================================
+
+ARQUIVOS DO PROJETO:
+  index.html  → Página principal (abra este no navegador)
+  style.css   → Estilo visual
+  app.js      → Toda a lógica do bolão
+  LEIA-ME.txt → Este arquivo
+
+--------------------------------------
+COMO ABRIR:
+--------------------------------------
+  1. Coloque os 3 arquivos (index.html, style.css, app.js)
+     na mesma pasta.
+  2. Abra o arquivo index.html em qualquer navegador
+     (Chrome, Firefox, Edge, Safari).
+  3. Pronto! Não precisa de internet nem servidor.
+
+--------------------------------------
+COMO FUNCIONA:
+--------------------------------------
+  ⚽ ABA JOGOS
+     Mostra todos os confrontos com status:
+     • Ao vivo (começa no horário agendado)
+     • Encerrado (após o admin lançar resultado)
+     • Em breve (próximos jogos)
+
+  ✏️ ABA MEUS PALPITES
+     Cada pessoa entra com seu nome.
+     Pode palpitar enquanto o prazo estiver aberto
+     (30 minutos antes de cada jogo).
+     Após o resultado, vê a pontuação recebida.
+
+  🏆 ABA CLASSIFICAÇÃO
+     Ranking automático de todos os participantes.
+
+  ⚙️ ABA ADMIN
+     Senha padrão: admin123
+     • Adicionar novos jogos
+     • Lançar resultados (pontuação calculada automaticamente)
+     • Remover jogos ou participantes
+
+--------------------------------------
+PONTUAÇÃO:
+--------------------------------------
+  🎯 Placar exato  → +10 pontos
+  ✅ Vencedor certo → +4 pontos
+  🤝 Empate certo  → +3 pontos
+  ❌ Errou         → 0 pontos
+
+--------------------------------------
+PERSONALIZAÇÃO (arquivo app.js):
+--------------------------------------
+  Linha 8:  ADMIN_SENHA   → altere a senha do admin
+  Linha 9:  PONTOS        → altere a pontuação de cada acerto
+  Linha 10: PRAZO_MINUTOS → prazo para fechar palpites
+
+--------------------------------------
+COMPARTILHAR COM AMIGOS:
+--------------------------------------
+  Opção 1 — Localmente:
+    Coloque os arquivos numa pasta compartilhada
+    e cada um abre o index.html no próprio navegador.
+    ⚠️ Cada navegador tem seus próprios dados.
+
+  Opção 2 — Na internet (todos jogam juntos):
+    Hospede gratuitamente no GitHub Pages, Netlify
+    ou Vercel. Todos acessam pelo mesmo link e
+    veem a mesma classificação.
+    (Precisará de uma conta nessas plataformas)
+
+  Opção 3 — Rede local:
+    Use extensão "Live Server" no VS Code para
+    servir na rede local da sua casa/trabalho.
+
+======================================

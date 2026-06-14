@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolão da Copa 🏆</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="trophy-icon">🏆</div>
+      <h1>Bolão da Copa</h1>
+      <p>Faça seus palpites e dispute com os amigos</p>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <button class="nav-btn active" data-section="jogos">
+      <i class="ti ti-ball-football" aria-hidden="true"></i> Jogos
+    </button>
+    <button class="nav-btn" data-section="bolao">
+      <i class="ti ti-pencil" aria-hidden="true"></i> Meus Palpites
+    </button>
+    <button class="nav-btn" data-section="classificacao">
+      <i class="ti ti-trophy" aria-hidden="true"></i> Classificação
+    </button>
+    <button class="nav-btn" data-section="admin">
+      <i class="ti ti-settings" aria-hidden="true"></i> Admin
+    </button>
+    <button class="nav-btn" data-section="regras">
+      <i class="ti ti-info-circle" aria-hidden="true"></i> Regras
+    </button>
+  </nav>
+
+  <main class="container">
+
+    <!-- ===== SEÇÃO: JOGOS ===== -->
+    <section id="sec-jogos" class="section active">
+      <div id="jogos-list"></div>
+    </section>
+
+    <!-- ===== SEÇÃO: BOLÃO / PALPITES ===== -->
+    <section id="sec-bolao" class="section">
+
+      <!-- Login / Identificação -->
+      <div id="login-box" class="card login-card">
+        <h2><i class="ti ti-user-circle" aria-hidden="true"></i> Entrar no Bolão</h2>
+        <p class="muted">Digite seu nome para fazer seus palpites</p>
+        <div class="input-group">
+          <input type="text" id="user-name-input" placeholder="Seu nome completo" maxlength="40">
+          <button class="btn-primary" onclick="entrarBolao()">Entrar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+
+      <!-- Painel de palpites (aparece após login) -->
+      <div id="bolao-painel" style="display:none">
+        <div class="bolao-header card">
+          <div class="bolao-saudacao">
+            <span>Olá, <strong id="nome-usuario"></strong> 👋</span>
+            <span class="muted small" id="palpites-count"></span>
+          </div>
+          <div class="bolao-stats">
+            <div class="stat-item">
+              <span class="stat-val" id="stat-pts">0</span>
+              <span class="stat-lbl">pontos</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val" id="stat-pos">—</span>
+              <span class="stat-lbl">posição</span>
+            </div>
+          </div>
+          <button class="btn-ghost small" onclick="sairBolao()"><i class="ti ti-logout" aria-hidden="true"></i> Sair</button>
+        </div>
+
+        <div id="palpites-abertos"></div>
+        <div id="palpites-fechados"></div>
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO: CLASSIFICAÇÃO ===== -->
+    <section id="sec-classificacao" class="section">
+      <div class="section-title"><i class="ti ti-trophy" aria-hidden="true"></i> Classificação Geral</div>
+      <div class="card" style="padding:0; overflow:hidden">
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Participante</th>
+              <th>Exatos</th>
+              <th>Acertos</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody id="rank-body"></tbody>
+        </table>
+      </div>
+      <p class="muted small center" style="margin-top:.75rem">Atualizado automaticamente após cada resultado</p>
+    </section>
+
+    <!-- ===== SEÇÃO: ADMIN ===== -->
+    <section id="sec-admin" class="section">
+      <div class="admin-lock" id="admin-lock">
+        <div class="card login-card">
+          <h2><i class="ti ti-lock" aria-hidden="true"></i> Área do Administrador</h2>
+          <p class="muted">Digite a senha para acessar</p>
+          <div class="input-group">
+            <input type="password" id="admin-pass-input" placeholder="Senha do admin">
+            <button class="btn-primary" onclick="entrarAdmin()">Acessar</button>
+          </div>
+          <p class="muted small" style="margin-top:.5rem">Senha padrão: <code>admin123</code></p>
+        </div>
+      </div>
+
+      <div id="admin-painel" style="display:none">
+        <div class="section-title"><i class="ti ti-settings" aria-hidden="true"></i> Painel Admin</div>
+
+        <!-- Adicionar Jogo -->
+        <div class="card admin-card">
+          <h3><i class="ti ti-plus" aria-hidden="true"></i> Adicionar Jogo</h3>
+          <div class="admin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bandeira Time A</label>
+                <input type="text" id="a-flag" placeholder="🇧🇷" maxlength="4">
+              </div>
+              <div class="form-group">
+                <label>Nome Time A</label>
+                <input type="text" id="a-name" placeholder="Brasil">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bandeira Time B</label>
+                <input type="text" id="b-flag" placeholder="🇦🇷" maxlength="4">
+              </div>
+              <div class="form-group">
+                <label>Nome Time B</label>
+                <input type="text" id="b-name" placeholder="Argentina">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Data e Hora</label>
+                <input type="datetime-local" id="jogo-data">
+              </div>
+              <div class="form-group">
+                <label>Grupo / Fase</label>
+                <input type="text" id="jogo-grupo" placeholder="Grupo A · Fase de Grupos">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Estádio</label>
+              <input type="text" id="jogo-estadio" placeholder="Estádio Lusail">
+            </div>
+            <button class="btn-primary" onclick="adicionarJogo()"><i class="ti ti-plus" aria-hidden="true"></i> Adicionar Jogo</button>
+          </div>
+        </div>
+
+        <!-- Lançar Resultado -->
+        <div class="card admin-card">
+          <h3><i class="ti ti-pencil" aria-hidden="true"></i> Lançar Resultado</h3>
+          <div id="admin-jogos-list"></div>
+        </div>
+
+        <!-- Gerenciar Participantes -->
+        <div class="card admin-card">
+          <h3><i class="ti ti-users" aria-hidden="true"></i> Participantes</h3>
+          <div id="admin-participantes"></div>
+        </div>
+
+        <button class="btn-ghost" style="margin-top:1rem" onclick="sairAdmin()"><i class="ti ti-logout" aria-hidden="true"></i> Sair do Admin</button>
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO: REGRAS ===== -->
+    <section id="sec-regras" class="section">
+      <div class="section-title"><i class="ti ti-info-circle" aria-hidden="true"></i> Como Funciona</div>
+      <div class="card rules-card">
+        <div class="rule-item">
+          <div class="rule-icon gold">🎯</div>
+          <div>
+            <h3>Placar exato</h3>
+            <p>Acertou o placar completo (ex: 2×1) → <strong class="gold">+10 pontos</strong></p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon green">✅</div>
+          <div>
+            <h3>Vencedor certo</h3>
+            <p>Acertou quem ganha, mas errou o placar → <strong class="green">+4 pontos</strong></p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon blue">🤝</div>
+          <div>
+            <h3>Empate certo</h3>
+            <p>Acertou que terminaria empatado, mas errou o placar → <strong class="blue">+3 pontos</strong></p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon gray">❌</div>
+          <div>
+            <h3>Errou</h3>
+            <p>Nenhum dos critérios acima → <strong class="gray">0 pontos</strong></p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon gold">⏰</div>
+          <div>
+            <h3>Prazo para palpitar</h3>
+            <p>Os palpites fecham <strong class="gold">30 minutos antes</strong> de cada jogo começar. Após isso, não é possível alterar.</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon green">🏆</div>
+          <div>
+            <h3>Desempate</h3>
+            <p>Em caso de empate em pontos, vence quem tiver mais placares exatos. Em segundo critério, mais vencedores certos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
